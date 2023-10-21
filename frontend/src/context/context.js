@@ -3,6 +3,7 @@ import axios from "axios";
 
 const StateContext = createContext();
 const api_uri = 'https://mindscribe-70op.onrender.com';
+// const api_uri = 'http://127.0.0.1:8000';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
@@ -12,19 +13,22 @@ const ContextProvider = ({ children }) => {
     setJournals((prevJournals) => [...prevJournals, payload]);
   };
 
-  const verify = async (uid, token) => {
+  const verify = async(uid, token) =>{
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({ uid, token });
+
     try {
-      // Make an API request to verify the account using Djoser
-      const response = await axios.post(`${api_uri}/auth/users/activate/`, {
-        uid,
-        token,
-      });
-      // Handle the response as needed
-      // You might want to set some state or display a message to the user.
-    } catch (error) {
-      // Handle errors
+       const response = await axios.post(`${api_uri}/auth/users/activation/`, body, config);
+       return response;
+    } catch (err) {
+       throw err
     }
-  };
+};
 
   const login = async (email, password) => {
     try {
@@ -59,20 +63,7 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const activate = async (uid, token) => {
-    try {
-      // Make an API request to activate an account using Djoser
-      const response = await axios.post(`${api_uri}/auth/users/activate/`, {
-        uid,
-        token,
-      });
-      // Handle the response as needed
-      // You might want to set some state or display a message to the user.
-    } catch (error) {
-      // Handle errors
-    }
-  };
-
+  
   const reset_password = async (email) => {
     console.log('email', email);
     const config = {
@@ -125,7 +116,6 @@ const ContextProvider = ({ children }) => {
         verify,
         login,
         register,
-        activate,
         reset_password,
         authenticated,
         setAuthenticated,
