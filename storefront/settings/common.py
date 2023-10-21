@@ -235,3 +235,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "mindscribe23@gmail.com"
 EMAIL_HOST_PASSWORD = "wxkiakijqvjnjlfu"
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
