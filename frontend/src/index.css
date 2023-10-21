@@ -1,0 +1,17 @@
+
+.home{
+position: absolute;
+width: 701px;
+height: 642px;
+left: 21px;
+top: 194px;
+}
+
+.authlink {
+    text-decoration: none;
+  }
+  
+  .editor {
+    height: 600px;
+  }
+  

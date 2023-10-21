@@ -1,0 +1,66 @@
+import { Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { useStateContext } from "../context/context";
+
+function Header() {
+  const {
+    authenticated,
+    setAuthenticated,
+   } = useStateContext();
+
+
+  // Function to handle logout
+  const handleLogOut = () => {
+    // Remove the user from local storage
+    localStorage.removeItem("user");
+    setAuthenticated(false);
+
+    // Redirect to the login page (you need to define your login route)
+    window.location.href = "/login";
+  };
+
+  return (
+    <div style={{ backgroundColor: "#f2f3f5" }}>
+      <Container>
+        <br />
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Navbar.Brand href="/">
+            <h3 style={{ color: "#0275d8" }}>MindScribe</h3>
+          </Navbar.Brand>
+
+          <Navbar.Brand id="responsive-navbar-nav">
+            <Nav className="ms-auto">
+              {authenticated ? (
+                <Nav.Link onClick={handleLogOut}>
+                  Log Out
+                </Nav.Link>
+              ) : (
+                <>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <a href="/login" className="authlink">
+                      Log In
+                    </a>
+                    <span style={{ margin: "0 10px" }}>&nbsp;</span>
+                    <a href="/register" className="authlink">
+                      Sign Up
+                    </a>
+                  </Box>
+                </>
+              )}
+            </Nav>
+          </Navbar.Brand>
+        </Box>
+      </Container>
+      <br />
+    </div>
+  );
+}
+
+export default Header;
