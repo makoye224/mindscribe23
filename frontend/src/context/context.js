@@ -47,15 +47,15 @@ const ContextProvider = ({ children }) => {
   };
 
   const register = async (email,  password, re_password, first_name, last_name) => {
+    const config = {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  };
+  const body = JSON.stringify({ first_name, last_name, email, password, re_password});
     try {
       // Make an API request to register a new user using Djoser
-      const response = await axios.post(`${api_uri}/auth/users/`, {
-        email: email,
-        password: password,
-        re_password: re_password,
-        first_name: first_name,
-        last_name: last_name,
-      });
+      const response = await axios.post(`${api_uri}/auth/users/`, body, config);
       return response;
       // Handle the response as needed
     } catch (error) {
