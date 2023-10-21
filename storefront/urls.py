@@ -26,7 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.jwt")),
-    path("", include("core.urls")),
+    path("", include("account.urls")),
 ]
 
 if settings.DEBUG:

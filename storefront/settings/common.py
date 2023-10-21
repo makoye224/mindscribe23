@@ -38,12 +38,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "silk",
-    "playground",
-    # "debug_toolbar",
-    "store",
-    "tags",
-    "likes",
-    "core",
+    "account",
+    "journalstore",
 ]
 
 MIDDLEWARE = [
@@ -155,7 +151,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-AUTH_USER_MODEL = "core.User"
+AUTH_USER_MODEL = "account.CustomUser"
 
 DJOSER = {
     "LOGIN_FIELD": "email",
@@ -174,12 +170,7 @@ DJOSER = {
         "http://localhost:8000/google",
         "http://localhost:8000/facebook",
     ],
-    "SERIALIZERS": {
-        "user_create": "core.serializers.CustomUserCreateSerializer",
-        "current_user": "core.serializers.UserSerializer",
-        "user": "core.serializers.UserSerializer",
-        "user_delete": "djoser.serializers.UserDeleteSerializer",
-    },
+    "SERIALIZERS": {},
 }
 
 SIMPLE_JWT = {
