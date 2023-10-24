@@ -1,14 +1,22 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from rest_framework import routers
 from . import views
 
-router = DefaultRouter()
-router.register(r"journalstyles", views.JournalStyleViewSet)
-router.register(r"labels", views.LabelViewSet)
-router.register(r"journalentries", views.JournalEntryViewSet)
-router.register(r"profiles", views.ProfileViewSet)
-router.register(r"userfeedbacks", views.UserFeedbackManagerViewSet)
+# Create a DefaultRouter instance
+router = routers.DefaultRouter()
 
-urlpatterns = [
-    path("", include(router.urls)),
-]
+# Register viewsets with the router
+router.register("journals", views.JournalEntryViewSet, basename="journalentries")
+router.register("labels", views.LabelViewSet, basename="labels")
+router.register("styles", views.JournalStyleViewSet, basename="journalstyles")
+router.register("profile", views.ProfileViewSet, basename="profile")
+router.register(
+    "feedback", views.UserFeedbackManagerViewSet, basename="usermanagerfeedback"
+)
+router.register("user-entries", views.UserJournalEntriesViewSet, basename="userentries")
+
+# URL patterns
+urlpatterns = []
+
+# Extend urlpatterns with router URLs
+urlpatterns += router.urls

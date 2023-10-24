@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../context/context';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   // State to store form inputs
@@ -12,13 +13,14 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(''); // State for error message
 
   const navigate = useNavigate()
   const {
     register,
-    authenticated,
-    setAuthenticated,
    } = useStateContext();
+
+   
 
   // Function to handle form submission
   const handleSubmit = async(e) => {
@@ -35,10 +37,14 @@ const Register = () => {
     try{
       const response = await register(email, password, confirmPassword, firstName, lastName)
       if(response?.data){
+        toast.success('Registered Successfully')
         navigate('/activate_account')
+
        }
     }catch(e){
       console.log(e?.response?.data)
+      setError(e?.response?.data?.email ||e?.response?.data?.non_field_errors || 'something went wrong' )
+      toast.error('try again')
     }
   };
 
@@ -47,6 +53,9 @@ const Register = () => {
       <Card style={{ width: '30rem' }}>
         <Card.Body>
           <Card.Title>Sign Up</Card.Title>
+          {error && (
+            <div className="alert alert-danger">{error}</div>
+          )}
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group controlId='firstName' className='mb-3'>
               <Form.Control

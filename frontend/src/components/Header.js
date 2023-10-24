@@ -6,20 +6,16 @@ import Navbar from "react-bootstrap/Navbar";
 import { useStateContext } from "../context/context";
 
 function Header() {
-  const {
-    authenticated,
-    setAuthenticated,
-   } = useStateContext();
-
-
+  const { user, logout } = useStateContext()
   // Function to handle logout
   const handleLogOut = () => {
-    // Remove the user from local storage
-    localStorage.removeItem("user");
-    setAuthenticated(false);
-
+    logout()
     // Redirect to the login page (you need to define your login route)
     window.location.href = "/login";
+  };
+  const handleJournals = () => {
+    // Redirect to the main page (you need to define your login route)
+    window.location.href = "/home";
   };
 
   return (
@@ -33,10 +29,12 @@ function Header() {
 
           <Navbar.Brand id="responsive-navbar-nav">
             <Nav className="ms-auto">
-              {authenticated ? (
-                <Nav.Link onClick={handleLogOut}>
-                  Log Out
-                </Nav.Link>
+              {user ? (
+                <><Nav.Link onClick={handleJournals}>
+                  Journals
+                </Nav.Link><Nav.Link onClick={handleLogOut}>
+                    Log Out
+                  </Nav.Link></>
               ) : (
                 <>
                   <Box

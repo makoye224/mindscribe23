@@ -1,6 +1,6 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
-import LabelModal from "../components/LabelModal";
+import LabelModal from "../components/JournalEntryModal";
 import { JournalEntry } from "../components/JournalEntry";
 import SearchBar from "../components/SearchBar";
 import Container from "@mui/material/Container";
@@ -8,8 +8,8 @@ import { Row, Col, Button } from "react-bootstrap";
 import AddIcon from "@mui/icons-material/Add";
 import { useStateContext } from "../context/context";
 import { Box } from "@mui/material";
-
-
+import { useNavigate } from "react-router-dom";
+import Login from "../authentication/Login";
 
 const rectangleStyles = {
   width: "150px",
@@ -19,21 +19,25 @@ const rectangleStyles = {
   justifyContent: "center",
   alignItems: "center",
 };
+
 const plusIconStyles = {
   fontSize: 50,
   color: "black",
 };
 
+
 export default function MainPage() {
   // State for controlling the visibility of the modal
   const [modalShow, setModalShow] = React.useState(false);
+
+  // Retrieve user data from localStorage
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate()
+
   const {
    journals,
-   setJournals,
-   addEntry,
+   fetchJournals,
   } = useStateContext();
-
-  console.log('journals', journals)
 
   const handleCloseModal = () => {
     setModalShow(false);
@@ -41,11 +45,12 @@ export default function MainPage() {
 
   const handlePlusClick =()=>{
     setModalShow(true);
-    //setJournals(...journals, 1)
+    
   }
-  
 
   return (
+    <>
+    { user ? (
     <Container>
       <div>
     
@@ -73,7 +78,7 @@ export default function MainPage() {
               <Row>
           {journals?.map((entry) => (
             <Col key={entry?.title} lg={4} md={6} xs={12}>
-            <JournalEntry title = {entry?.title} />
+            <JournalEntry entry = {entry} />
               <br />
             </Col>
           ))}
@@ -85,5 +90,8 @@ export default function MainPage() {
 
       </div>
     </Container>
+    ) : (<Login/>)
+    }
+    </>
   );
 }

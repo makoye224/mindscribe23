@@ -4,18 +4,26 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useStateContext } from '../context/context';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   // State to store email and password inputs
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // State for error message
+
+  
 
   const navigate = useNavigate()
   const {
     login,
-    authenticated,
-    setAuthenticated,
+    user,
+   setUser,
    } = useStateContext();
+
+   if(user){
+    navigate('/home');
+   }
 
  // Function to handle form submission
 const handleSubmit = async (e) => {
@@ -35,24 +43,34 @@ const handleSubmit = async (e) => {
     const response = await login(email, password);
 
     if (response.data) {
-      // Store the user's email in localStorage upon successful login
-      localStorage.setItem('user', email);
-      setAuthenticated(true);
+      const userData = {
+        'access': response.data?.access,
+        'refresh': response.data?.refresh,
+      }
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData)
+      toast.success('Logged in Successfully');
       navigate('/home');
     }
   } catch (e) {
-    alert('Wrong credentials');
+   toast.error(`wrong email or password`);
+   setError('wrong email or password')
   }
 };
 
 
   return (
     <div className='d-flex justify-content-center align-items-center vh-10'>
+     
       <Card style={{ width: '24rem' }}>
         <Card.Body>
           <Card.Title>Log In</Card.Title>
           <Form onSubmit={handleSubmit} noValidate>
             <div className='mb-3'>
+
+            {error && (
+            <div className="alert alert-danger">{error}</div>
+          )}
             
               <Form.Control
                 type='email'

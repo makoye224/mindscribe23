@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import Jwt from "../authentication/jwt";
 
 const StateContext = createContext();
 const api_uri = 'https://mindscribe-70op.onrender.com';
@@ -7,11 +8,63 @@ const api_uri = 'https://mindscribe-70op.onrender.com';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
-  const [ authenticated, setAuthenticated] = useState(false)
-
-  const addEntry = (payload) => {
-    setJournals((prevJournals) => [...prevJournals, payload]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  
+  const addEntry = async(title, user) => {
+    const body = JSON.stringify({ title, user });
+      try {
+        const response = await axios.post(`${api_uri}/journalstore/journals/`, {title: title, user: user});
+        console.log('adding entry ', response)
+        return response.data; 
+      } catch (err) {
+        console.log(err)
+        throw err;
+      }
   };
+
+  
+  const fetchJournals = async () => {
+    
+    if (user && user.access) {
+      console.log('hello ', user.access)
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
+  
+      try {
+        
+        const response = await axios.get(`${api_uri}/journalstore/user-entries/`, {
+          headers,
+        });
+        console.log('journals ', response.data)
+        setJournals(response?.data); 
+        return response.data; 
+      } catch (err) {
+        throw err;
+      }
+    }
+  };
+
+  useEffect(()=>{
+    fetchJournals()
+   
+  }, [])
+
+
+  /* AUTHENTICATION */
+
+   // Add a function to check if the user is authenticated
+   const checkAuthenticated = () => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData && userData.access) {
+      setUser(userData);
+    }
+  };
+
+  useEffect(() => {
+    checkAuthenticated();
+  }, []);
 
   const verify = async(uid, token) =>{
     const config = {
@@ -44,6 +97,12 @@ const ContextProvider = ({ children }) => {
     } catch (error) {
       throw error
     }
+  };
+
+  const logout = () => {
+    // Remove the user from local storage
+    localStorage.removeItem('user');
+    setUser(null);
   };
 
   const register = async (email,  password, re_password, first_name, last_name) => {
@@ -98,7 +157,9 @@ const ContextProvider = ({ children }) => {
     try {
       // Make the password reset request
      const response =  await axios.post(`${api_uri}/auth/users/reset_password_confirm/`, body, config);
-     console.log( response)
+     console.log('context ', response)
+     return response;
+
       // Optionally, you can redirect the user to a login page or display a success message.
     } catch (error) {
       // Handle errors, e.g., dispatch an error action or show an error message
@@ -117,9 +178,11 @@ const ContextProvider = ({ children }) => {
         login,
         register,
         reset_password,
-        authenticated,
-        setAuthenticated,
         reset_password_confirm,
+        user,
+        setUser,
+        logout,
+        fetchJournals,
       }}
     >
       {children}

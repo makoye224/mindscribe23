@@ -6,7 +6,7 @@ import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import MoreIconModal from './MoreIconModal';
 import { NavLink } from 'react-router-dom';
 
-export const JournalEntry = ({title, isFavorited}) => {
+export const JournalEntry = ({entry}) => {
   // State for tracking whether the journal is bookmarked
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -35,7 +35,7 @@ export const JournalEntry = ({title, isFavorited}) => {
     
       <Card sx={{ position: 'relative' }}>
    
-      <NavLink to={`/editor/${title}`}>
+      <NavLink to={`/editor/${entry?.id}`}>
         <Box
           sx={{
             position: 'relative',
@@ -49,9 +49,9 @@ export const JournalEntry = ({title, isFavorited}) => {
         <CardContent>
        
           <Box display="flex" justifyContent="space-between" alignItems="center">
-          <NavLink to={`/editor/${title}`} style={{ textDecoration: 'none', color:'black' }}>
+          <NavLink to={`/editor/${entry.id}`} style={{ textDecoration: 'none', color:'black' }}>
             <Typography gutterBottom variant="p" component="div" >
-              {title}
+              {entry?.title}
             </Typography>
             </NavLink>
             <Button variant="text" style={{ color: 'black' }} onClick={handleMoreIconClick}>

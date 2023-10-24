@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Button, FormLabel } from 'react-bootstrap';
 import { Box, Typography } from '@mui/material';
 import { useStateContext } from "../context/context";
+import Jwt from '../authentication/jwt';
 
-function LabelModal(props) {
+
+function JournalEntryModa(props) {
   const [entry, setEntry] = useState('');
-
+  const userId = Jwt()
   const {
-    journals,
-    setJournals,
+    fetchJournals,
     addEntry,
    } = useStateContext();
 
@@ -17,17 +18,18 @@ function LabelModal(props) {
     setEntry(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const journalEntry = {
-      title: entry,
-      created_date: new Date(),
-      user: 'Makoye',
-      contents: '',
-    }
+  const handleSubmit = async() => {
     // Your submit logic here
-    addEntry(journalEntry)
-    setEntry('');
-    props.onHide(); // Close the modal after submission
+    try{
+      addEntry(entry, userId)
+      setEntry('');
+      fetchJournals()
+      props.onHide(); // Close the modal after submission
+    } catch(err){
+      console.log(err)
+    }
+  
+   
   };
 
   return (
@@ -62,4 +64,4 @@ function LabelModal(props) {
   );
 }
 
-export default LabelModal;
+export default JournalEntryModa;

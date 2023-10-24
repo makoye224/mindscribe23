@@ -14,7 +14,7 @@ class LabelSerializer(serializers.ModelSerializer):
 class JournalEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
-        fields = '__all__'
+        fields = ['title', 'contents', 'user', 'id']
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:

@@ -10,6 +10,8 @@ import Editor from './components/Editor';
 import Activate from './authentication/Activate';
 import ActivateAccount from './authentication/ActivateAccount';
 import ResetPasswordConfirm from './authentication/ResetPasswordConfirm';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -27,12 +29,23 @@ function App() {
           <Route path="/check_email" element={<CheckEmail/>} />
           {/* <Route path="/reset_password_confirm" element={<ResetPasswordConfirm/>} /> */}
           <Route path="/home" element={<MainPage/>} />
-          <Route path="/editor/:title" element={<Editor/>} />
+          <Route path="/editor/:id" element={<Editor/>} />
           <Route path='/password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
           <Route path="/activate/:uid/:token" element={<Activate/>} />
           <Route path="/activate_account" element={<ActivateAccount/>} />
         </Routes>
       </div>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </BrowserRouter>
   );
 }
