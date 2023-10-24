@@ -31,7 +31,7 @@ export default function MainPage() {
   const [modalShow, setModalShow] = React.useState(false);
 
   // Retrieve user data from localStorage
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('userData'));
   const navigate = useNavigate()
 
   const {

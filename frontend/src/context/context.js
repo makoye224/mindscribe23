@@ -8,7 +8,7 @@ const api_uri = 'https://mindscribe-70op.onrender.com';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
   
   const addEntry = async(title, user) => {
     const body = JSON.stringify({ title, user });
@@ -56,7 +56,7 @@ const ContextProvider = ({ children }) => {
 
    // Add a function to check if the user is authenticated
    const checkAuthenticated = () => {
-    const userData = JSON.parse(localStorage.getItem('user'));
+    const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData && userData.access) {
       setUser(userData);
     }
@@ -101,7 +101,7 @@ const ContextProvider = ({ children }) => {
 
   const logout = () => {
     // Remove the user from local storage
-    localStorage.removeItem('user');
+    localStorage.removeItem('userData');
     setUser(null);
   };
 
