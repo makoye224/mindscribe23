@@ -21,12 +21,6 @@ class JournalStyle(models.Model):
     )
 
 
-class Label(models.Model):
-    name = models.CharField(max_length=255)
-    created_date = models.DateTimeField(auto_now_add=True)
-    # Add any other fields related to labels as needed
-
-
 class JournalEntry(models.Model):
     title = models.CharField(max_length=255)
     contents = models.TextField(blank=True, null=True)
@@ -48,6 +42,15 @@ class JournalEntry(models.Model):
             self.journal_style = journal_style
 
         super(JournalEntry, self).save(*args, **kwargs)
+
+
+class Label(models.Model):
+    name = models.CharField(max_length=255)
+    created_date = models.DateTimeField(auto_now_add=True)
+    journals = models.ManyToManyField(JournalEntry, related_name="labels", blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None
+    )
 
 
 class Profile(models.Model):

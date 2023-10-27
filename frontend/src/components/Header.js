@@ -23,18 +23,16 @@ function Header() {
       <Container>
         <br />
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/home">
             <h3 style={{ color: "#0275d8" }}>MindScribe</h3>
           </Navbar.Brand>
 
           <Navbar.Brand id="responsive-navbar-nav">
             <Nav className="ms-auto">
               {user ? (
-                <><Nav.Link onClick={handleJournals}>
-                  Journals
-                </Nav.Link><Nav.Link onClick={handleLogOut}>
+                <Nav.Link onClick={handleLogOut}>
                     Log Out
-                  </Nav.Link></>
+                  </Nav.Link>
               ) : (
                 <>
                   <Box

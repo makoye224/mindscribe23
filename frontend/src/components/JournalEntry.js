@@ -5,17 +5,39 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import MoreIconModal from './MoreIconModal';
 import { NavLink } from 'react-router-dom';
+import { useStateContext } from '../context/context';
 
 export const JournalEntry = ({entry}) => {
-  // State for tracking whether the journal is bookmarked
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
+  const {
+    fetchJournals,
+    updateEntry,
+   } = useStateContext();
+
+  // State for tracking whether the journal is bookmarked
+  const [isBookmarked, setIsBookmarked] = useState(entry?.is_bookmarked || false);
   // State for controlling the visibility of the modal
   const [modalShow, setModalShow] = React.useState(false);
 
   // Function to handle the bookmark click
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = async() => {
     setIsBookmarked(!isBookmarked);
+    let val = '';
+    if(!isBookmarked){
+      val = 'true';
+    }
+    else{
+      val = 'false'
+    }
+    const payload = {
+      is_bookmarked: val,
+    }
+    try{
+      await updateEntry(entry.id, entry, payload)
+      fetchJournals()
+    }catch(err){
+      console.log(err)
+    }
   };
 
   // Function to handle the "more" icon click
@@ -76,7 +98,7 @@ export const JournalEntry = ({entry}) => {
         </Box>
       </Card>
 
-      <MoreIconModal show={modalShow} onHide={handleCloseModal} />
+      <MoreIconModal show={modalShow} onHide={handleCloseModal} journal = {entry}/>
    
     </>
   );

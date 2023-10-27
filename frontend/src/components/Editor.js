@@ -1,57 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useParams } from 'react-router-dom';
 import { useStateContext } from '../context/context';
-import RichTextEditor from './RichTextEditor';
-import JournalDisplay from './JournalDisplay';
+import Quill from 'quill';
 
+// Import the Quill image-resize module
+import 'quill/dist/quill.core.css'; // Optional, import Quill's core CSS
+import 'quill/dist/quill.bubble.css'; // Optional, import Quill's bubble theme CSS
+import 'quill-mention';
+import 'quill-mention/dist/quill.mention.css';
+import 'react-quill/dist/quill.snow.css';
 
+// Import the Quill image resize module
+import 'quill-resize-module';
 
 const Editor = () => {
   const { id } = useParams() || localStorage.getItem('currentJournalEntryId');
-  const { journals, setJournals } = useStateContext();
-  const [edit, setEdit] = useState(false)
+  const { journals, updateEntry } = useStateContext();
 
-  useEffect(()=>{
-
-  }, [id])
-  // Find the selected journal entry based on the id
+  // Find the selected journal entry based on the title
   const selectedJournalEntry = journals.find((entry) => entry.id == id);
+  console.log('entry --->', selectedJournalEntry)
+  // Initialize the text with the content of the selected entry, if found
+  const initialText = selectedJournalEntry ? selectedJournalEntry.contents : '';
 
-  const [journalName, setJournalName] = useState(selectedJournalEntry?.title);
-  const [text, setText] = useState(selectedJournalEntry?.contents);
+  const [text, setText] = useState(initialText);
+
+  const [title, setTitle] = useState(selectedJournalEntry?.title || '')
 
   // Use useEffect to automatically save changes to the journals state
-  useEffect(() => {
-    // Update your journals state here if needed
-  }, [journalName, text]);
+  useEffect(()=>{
+    const update= async()=>{
+      const payload = {
+        title: title,
+        contents: text,
+      }
+      console.log('payload ',selectedJournalEntry, payload)
+     await updateEntry (id, selectedJournalEntry, payload)
+}
+update()
+
+  }, [title, text]);
 
   const handleJournalNameChange = (event) => {
-    setJournalName(event.target.value);
+    setTitle(event.target.value);
   };
 
-  const handleSave = ()=>{
-
-  }
- 
+  //Toolbar for users to stylize their text
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline'],
+      ['link', 'image', 'video'],
+      [{ color: [] }, { background: [] }],
+      [{ script: 'sub' }, { script: 'super' }],
+      ['blockquote', 'code-block'],
+      [{ align: [] }],  
+      ['clean'],
+      ['undo', 'redo'],
+    ],
+  };
 
   return (
     <Container className="editor-container">
       <br />
-      <JournalDisplay entry = {selectedJournalEntry }/>
-      <Button variant={edit ? 'secondary' : 'primary'} onClick={()=>{setEdit(!edit)}}>{!edit ? 'Open Editor' : 'Close Editor'}</Button>
-      <br/>
-      {edit ? (<>
-        <br/>
-        <input
+      <input
         type="text"
-        value={journalName}
+        value={title}
         onChange={handleJournalNameChange}
         style={{ border: 'none', outline: 'none' }}
-        placeholder="Journal Title" /><RichTextEditor entry={selectedJournalEntry} />
-        <br/>
-          <Button onClick={handleSave} variant='success'>Save</Button>
-        </>):(null)}
+        placeholder="Journal Title"
+      />
+
+      <ReactQuill
+        theme="snow"
+        value={text}
+        onChange={setText}
+        modules={modules}
+        className="editor"
+      />
     </Container>
   );
 };

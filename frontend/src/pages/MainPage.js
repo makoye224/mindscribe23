@@ -10,6 +10,7 @@ import { useStateContext } from "../context/context";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Login from "../authentication/Login";
+import JournalEntryModal from "../components/JournalEntryModal";
 
 const rectangleStyles = {
   width: "150px",
@@ -38,6 +39,13 @@ export default function MainPage() {
    journals,
    fetchJournals,
   } = useStateContext();
+
+  React.useEffect(()=>{
+    const fetch = async()=>{
+      await fetchJournals()
+    }
+    fetch()
+  }, [])
 
   const handleCloseModal = () => {
     setModalShow(false);
@@ -86,7 +94,7 @@ export default function MainPage() {
           )}
         </div>
         
-        <LabelModal show={modalShow} onHide={handleCloseModal}/>
+        <JournalEntryModal show={modalShow} onHide={handleCloseModal}/>
 
       </div>
     </Container>

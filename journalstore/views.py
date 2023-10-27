@@ -9,6 +9,9 @@ from .serializers import (
     UserFeedbackManagerSerializer,
 )
 
+from rest_framework.response import Response
+from rest_framework import status
+
 
 class JournalStyleViewSet(viewsets.ModelViewSet):
     queryset = JournalStyle.objects.all()
@@ -44,6 +47,25 @@ class UserJournalEntriesViewSet(viewsets.ModelViewSet):
         # Filter the queryset to retrieve journal entries for the current user
         user = self.request.user
         return JournalEntry.objects.filter(user=user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            # Set the user to the authenticated user before saving
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserLabelViewSet(viewsets.ModelViewSet):
+    queryset = Label.objects.all()
+    serializer_class = LabelSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Filter the queryset to retrieve journal entries for the current user
+        user = self.request.user
+        return Label.objects.filter(user=user)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -14,6 +14,7 @@ router.register(
     "feedback", views.UserFeedbackManagerViewSet, basename="usermanagerfeedback"
 )
 router.register("user-entries", views.UserJournalEntriesViewSet, basename="userentries")
+router.register("user-labels", views.UserLabelViewSet, basename="userlabels")
 
 # URL patterns
 urlpatterns = []

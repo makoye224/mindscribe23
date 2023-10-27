@@ -19,6 +19,7 @@ const Login = () => {
     login,
     user,
    setUser,
+   fetchJournals,
    } = useStateContext();
 
    if(user){
@@ -47,7 +48,8 @@ const handleSubmit = async (e) => {
         'access': response.data?.access,
         'refresh': response.data?.refresh,
       }
-      localStorage.setItem('userData', JSON.stringify(userData));
+      console.log(userData)
+      await localStorage.setItem('userData', JSON.stringify(userData));
       setUser(userData)
       toast.success('Logged in Successfully');
       navigate('/home');

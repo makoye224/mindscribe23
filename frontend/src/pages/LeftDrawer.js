@@ -7,11 +7,36 @@ import { Avatar, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Container } from 'react-bootstrap';
+import { useStateContext } from '../context/context';
+import LabelModal from '../components/LabelModal';
 
 export default function LeftDrawer() {
+  const [modalShow, setModalShow] = React.useState(false);
   const [state, setState] = React.useState({
     left: false,
   });
+  const {
+    labels,
+    currentUser,
+    fetchLabels,
+    getUser,
+   } = useStateContext();
+
+   React.useEffect(()=>{
+    const fetch = async()=>{
+      await fetchLabels()
+      await getUser()
+    }
+    fetch()
+  }, [])
+
+   const handleCloseModal = () => {
+    setModalShow(false);
+  };
+
+  if(!labels){
+    <h2>No labels</h2>
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -35,7 +60,7 @@ export default function LeftDrawer() {
              <Box display="flex" alignItems="center" gap={1}>
                <AccountBoxIcon
                />
-               <Typography variant="body1">Alice Liu</Typography>
+               <Typography variant="body1">{currentUser?.email}</Typography>
              </Box>
            </Box><hr /><Box>
                <CustomButton variant='secondary'><Typography variant="h5">
@@ -53,18 +78,17 @@ export default function LeftDrawer() {
                    Labels
                  </Typography>
                  </CustomButton>
-                 <CustomButton variant='secondary'>  <AddIcon style={{ scale: '120%' }} /></CustomButton>
+                 <CustomButton onClick={()=>setModalShow(true)} variant='secondary'>  <AddIcon style={{ scale: '120%' }} /></CustomButton>
 
                </Box>
                <Box>
-                 <CustomButton variant='secondary'> Mental Health</CustomButton>
-                 <br />
-                 <CustomButton variant='secondary'>Vacation</CustomButton>
-                 <br />
-                 <CustomButton variant='secondary'> Summer Plans</CustomButton>
-                 <br />
+               {labels.map((label)=>
+               <div>
+               <CustomButton variant='secondary'>{label.name}</CustomButton>
+               </div>
+               )}
                </Box>
-
+             
              </Box>
     </Box>
     </Container>
@@ -72,6 +96,8 @@ export default function LeftDrawer() {
 
   // Render the drawer only on the left side
   const anchor = 'left';
+
+  
 
   return (
     <Container>
@@ -87,7 +113,7 @@ export default function LeftDrawer() {
           {list(anchor)}
         </Drawer>
       </React.Fragment>
-
+      <LabelModal show={modalShow} onHide={handleCloseModal}/>
     </Box>
     </Container>
   );

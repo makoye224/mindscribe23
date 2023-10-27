@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Jwt from "../authentication/jwt";
+import { json } from "react-router-dom";
 
 const StateContext = createContext();
 const api_uri = 'https://mindscribe-70op.onrender.com';
@@ -8,7 +9,9 @@ const api_uri = 'https://mindscribe-70op.onrender.com';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
+  const [labels, setLabels] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
+  const [currentUser, setCurrentUser] = useState(null);
   
   const addEntry = async(title, user) => {
     const body = JSON.stringify({ title, user });
@@ -22,11 +25,42 @@ const ContextProvider = ({ children }) => {
       }
   };
 
+  const deleteEntry = async(id) => {
+      try {
+        const response = await axios.delete(`${api_uri}/journalstore/journals/${id}/`);
+        console.log('deleting entry ', response)
+        return response.data; 
+      } catch (err) {
+        console.log(err)
+        throw err;
+      }
+  };
+
+  const updateEntry = async (id, entry, payload) => {
+    const body = {
+      title: payload?.title || entry.title,
+      contents: payload?.contents || entry.contents,
+      is_bookmarked: payload?.is_bookmarked || entry.is_bookmarked,
+      updated_date: payload?.updated_date || entry.updated_date,
+      is_favorite: payload?.is_favorite || entry.is_favorite,
+      journal_style: payload?.journal_style || entry.journal_style,
+    };
+
+    console.log(body)
+  
+    try {
+      const response = await axios.patch(`${api_uri}/journalstore/journals/${id}/`, body);
+      console.log('updating entry', response);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };  
   
   const fetchJournals = async () => {
     
     if (user && user.access) {
-      console.log('hello ', user.access)
       const headers = {
         Authorization: `JWT ${user?.access}`,
        
@@ -48,8 +82,47 @@ const ContextProvider = ({ children }) => {
 
   useEffect(()=>{
     fetchJournals()
-   
+    fetchLabels()
+     getUser()
   }, [])
+
+   /* LABELS */
+   const createLabel = async(id, title) => {
+    const body = {
+      user: id,
+      name: title,
+    }
+      try {
+        const response = await axios.post(`${api_uri}/journalstore/labels/`, body);
+        console.log('creating label ', response)
+        return response.data; 
+      } catch (err) {
+        console.log('error creating label ', err)
+        throw err;
+      }
+  };
+
+  const fetchLabels = async () => {
+    
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
+  
+      try {
+        
+        const response = await axios.get(`${api_uri}/journalstore/user-labels/`, {
+          headers,
+        });
+        console.log(response.data)
+        setLabels(response.data); 
+        return response.data; 
+      } catch (err) {
+        throw err;
+      }
+    }
+  };
 
 
   /* AUTHENTICATION */
@@ -166,6 +239,24 @@ const ContextProvider = ({ children }) => {
       throw error
     }
   };
+
+  const getUser = async()=>{
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
+
+      try{
+        const userData = await axios.get(`${api_uri}/auth/users/me/`, {headers})
+        console.log(userData)
+        setCurrentUser(userData.data)
+      } catch(err){
+        console.log(err)
+      }
+
+  }
+}
   
 
   return (
@@ -183,6 +274,13 @@ const ContextProvider = ({ children }) => {
         setUser,
         logout,
         fetchJournals,
+        deleteEntry,
+        updateEntry,
+        createLabel, 
+        fetchLabels,
+        labels,
+        getUser,
+        currentUser,
       }}
     >
       {children}

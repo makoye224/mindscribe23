@@ -6,12 +6,12 @@ import { useStateContext } from "../context/context";
 import Jwt from '../authentication/jwt';
 
 
-function JournalEntryModal(props) {
+function LabelModal(props) {
   const [entry, setEntry] = useState('');
   const userId = Jwt()
   const {
-    fetchJournals,
-    addEntry,
+    createLabel,
+    fetchLabels,
    } = useStateContext();
 
   const handleEntryChange = (e) => {
@@ -21,9 +21,9 @@ function JournalEntryModal(props) {
   const handleSubmit = async() => {
     // Your submit logic here
     try{
-      await addEntry(entry, userId)
+      createLabel(userId, entry)
       setEntry('');
-      fetchJournals()
+      fetchLabels()
       props.onHide(); // Close the modal after submission
     } catch(err){
       console.log(err)
@@ -41,11 +41,11 @@ function JournalEntryModal(props) {
     >
       <Modal.Body>
         <div className="mb-3">
-          <FormLabel>Name of Entry</FormLabel>
+          <FormLabel>Name of Label</FormLabel>
           <input
             type="text"
             className="form-control"
-            placeholder="eg. Vacation in Italy..."
+            placeholder="eg. Health..."
             value={entry}
             onChange={handleEntryChange}
             required
@@ -57,11 +57,11 @@ function JournalEntryModal(props) {
           Cancel
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
-          Start New Entry
+          Create Label
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default JournalEntryModal;
+export default LabelModal;
