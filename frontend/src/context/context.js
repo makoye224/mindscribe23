@@ -162,7 +162,7 @@ const ContextProvider = ({ children }) => {
 
       // Optionally, you can redirect the user to a login page or display a success message.
     } catch (error) {
-      // Handle errors, e.g., dispatch an error action or show an error message
+    
       throw error
     }
   };

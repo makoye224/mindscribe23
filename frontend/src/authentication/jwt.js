@@ -6,7 +6,7 @@ function Jwt() {
 
   useEffect(() => {
     // Retrieve user data from localStorage
-    const userData = JSON.parse(localStorage.getItem('user'));
+    const userData = JSON.parse(localStorage.getItem('userData'));
     
     // Check if user data is available and has an 'access' token
     if (userData && userData.access) {
