@@ -8,6 +8,7 @@ from django.urls import reverse
 
 # AUTHENTICATION TESTS
 @pytest.mark.django_db
+#Creating a user with all proper credentials 
 class TestCreateUser:
     def test_creating_user_with_valid_details_returns_201(self):
         client = APIClient()
