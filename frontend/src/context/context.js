@@ -4,8 +4,8 @@ import Jwt from "../authentication/jwt";
 import { json } from "react-router-dom";
 
 const StateContext = createContext();
-// const api_uri = 'https://mindscribe-70op.onrender.com';
-const api_uri = 'http://127.0.0.1:8000';
+const api_uri = 'https://mindscribe-70op.onrender.com';
+// const api_uri = 'http://127.0.0.1:8000';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
