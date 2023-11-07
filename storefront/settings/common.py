@@ -215,7 +215,11 @@ LOGGING = {
     },
 }
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgres://mindscribe_suyl_user:8turuw77CgiHy1ZiR0NVbtwdZrAmVWgc@dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com/mindscribe_suyl"
+    )
+}
 
 DEFAULT_FROM_EMAIL = "mindscribe23@gmail.com"
 EMAIL_USE_SSL = False
