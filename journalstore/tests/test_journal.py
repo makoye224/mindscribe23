@@ -13,8 +13,8 @@ class TestCreateUser:
             "/auth/users/",
             {
                 "email": "example@example.com",
-                "password": "strong@Password",
-                "re_password": "strong@Password",
+                "password": "Strong@Password",
+                "re_password": "Strong@Password",
             },
         )
 
