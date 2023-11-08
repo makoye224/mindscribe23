@@ -38,6 +38,10 @@ class TestInvalidUserCreds
 #------------------------------------------------------------------------------
 #Test for Viewing all Recently created entries 
 # JOURNALSTORE TESTS
+
+# Define the API endpoint for journal creation
+journal_endpoint = "/journalstore/journals/"
+
 @pytest.mark.django_db
 class TestJournalEntry:
     def test_if_no_user_returns_400(self):
@@ -48,8 +52,7 @@ class TestJournalEntry:
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-# Define the API endpoint for journal creation
-journal_endpoint = "/journalstore/journals/"
+
 
 # Pytest for new users with no journal entries
 def test_create_journal_for_new_users():
@@ -61,7 +64,7 @@ def test_create_journal_for_new_users():
         {"title": "Journal Title", "contents": "Journal Content"},
     )
 
-    assert response.status_code == status.HTTP_201_CREATED
+    assert response.status_code == status.HTTP_200_OK
 
 # Pytest for returning users with previous journal entries
 def test_create_journal_for_returning_users_with_entries():
@@ -73,7 +76,7 @@ def test_create_journal_for_returning_users_with_entries():
         {"title": "Journal Title", "contents": "Journal Content"},
     )
 
-    assert response.status_code == status.HTTP_201_CREATED
+    assert response.status_code == status.HTTP_200_OK
 
 # Pytest for returning users with no journal entries
 def test_create_journal_for_returning_users_with_no_entries():
@@ -85,7 +88,7 @@ def test_create_journal_for_returning_users_with_no_entries():
         {"title": "Journal Title", "contents": "Journal Content"},
     )
 
-    assert response.status_code == status.HTTP_201_CREATED
+    assert response.status_code == status.HTTP_200_OK
 
 # Pytest for a general case where the user has deleted all entries
 def test_create_journal_for_user_with_deleted_entries():
@@ -97,15 +100,30 @@ def test_create_journal_for_user_with_deleted_entries():
         {"title": "Journal Title", "contents": "Journal Content"},
     )
 
-    assert response.status_code == status.HTTP_201_CREATED
+    assert response.status_code == status.HTTP_200_OK
 
-if __name__ == '__main__':
-    pytest.main()
 #------------------------------------------------------------------------------
 #Tests for Creating, editing, and deleting journal entries
 
+
 #------------------------------------------------------------------------------
 #Tests for Bookmarking journal entries
+
+#Test for checking if entry is bookmarked 
+def test_check_if_entry_is_bookmarked():
+    client = APIClient()
+    response = client.get(journal_endpoint)
+    
+    assert response.status_code == status.HTTP_200_OK
+    assert data["is_bookmarked"] is True
+
+#Test for when not bookmarked
+def test_check_if_entry_is_notbookmarked():
+    client = APIClient()
+    response = client.get(journal_endpoint)
+    
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+     assert data["is_bookmarked"] is False
 
 #------------------------------------------------------------------------------
 #Tests for Viewing bookmarked journal entries
@@ -121,4 +139,6 @@ if __name__ == '__main__':
 
 #------------------------------------------------------------------------------
 #Tests for editing personal profile 
-
+#------------------------------------------------------------------------------
+if __name__ == '__main__':
+    pytest.main()
