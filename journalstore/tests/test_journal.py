@@ -122,7 +122,7 @@ def test_check_if_entry_is_notbookmarked():
     client = APIClient()
     response = client.get(journal_endpoint)
     
-    assert response.status_code == status.HTTP_404_NOT_FOUND
+    assert response.status_code == status.HTTP_200_OK
     assert response.json()["is_bookmarked"] is False 
 
 #------------------------------------------------------------------------------
