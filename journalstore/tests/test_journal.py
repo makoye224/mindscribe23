@@ -55,7 +55,7 @@ class TestInvalidUserCreds:
 
 
 # ------------------------------------------------------------------------------
-# Test for Viewing all Recently created entries
+# Test for Viewing, creating, editing, deleting journal entries
 # JOURNALSTORE TESTS
 @pytest.mark.django_db
 class TestJournalStore:
@@ -188,7 +188,8 @@ class TestJournalStore:
         updated_entry = JournalEntry.objects.get(id=entry_id)
         assert updated_entry.title == "Updated Entry"
         assert updated_entry.contents == "New content"
-
+# ------------------------------------------------------------------------------
+# Test for Viewing, Creating, Editing, Deleting Labels
     def test_delete_label(self, authenticated_client):
         client = authenticated_client
         response = client.get(
@@ -234,3 +235,12 @@ class TestJournalStore:
         # Verify that the label is updated in the database
         updated_label = Label.objects.get(id=label_id)
         assert updated_label.name == "Updated Label"
+
+# ------------------------------------------------------------------------------
+# Bookmarking/Unbookmarking and Viewing Bookmarked Entries
+# ------------------------------------------------------------------------------
+# Search Functionality
+# ------------------------------------------------------------------------------
+# Editing profile 
+
+
