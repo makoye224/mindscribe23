@@ -8,6 +8,7 @@ import Jwt from '../authentication/jwt';
 
 function JournalEntryModal(props) {
   const [entry, setEntry] = useState('');
+  const [error, setError] = useState('');
   const userId = Jwt()
   const {
     fetchJournals,
@@ -26,7 +27,9 @@ function JournalEntryModal(props) {
       fetchJournals()
       props.onHide(); // Close the modal after submission
     } catch(err){
-      console.log(err)
+      setError(err?.response?.data?.error)
+      console.log('error ', error)
+      console.error(err)
     }
   
    
@@ -51,6 +54,7 @@ function JournalEntryModal(props) {
             required
           />
         </div>
+        {error && <div className='alert alert-danger'>{error}</div>}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={props.onHide}>

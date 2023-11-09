@@ -6,8 +6,8 @@ from . import views
 router = routers.DefaultRouter()
 
 # Register viewsets with the router
-router.register("journals", views.JournalEntryViewSet, basename="journalentries")
-router.register("labels", views.LabelViewSet, basename="labels")
+router.register("journals", views.UserJournalEntriesViewSet, basename="journalentries")
+router.register("labels", views.UserLabelViewSet, basename="labels")
 router.register("styles", views.JournalStyleViewSet, basename="journalstyles")
 router.register("profile", views.ProfileViewSet, basename="profile")
 router.register(

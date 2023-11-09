@@ -34,6 +34,12 @@ class JournalEntry(models.Model):
     is_favorite = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    class Meta:
+        # Create a unique constraint on user and title
+        constraints = [
+            models.UniqueConstraint(fields=["user", "title"], name="unique_user_title")
+        ]
+
     def save(self, *args, **kwargs):
         # Check if the JournalStyle is already set
         if not self.journal_style_id:

@@ -4,8 +4,8 @@ import Jwt from "../authentication/jwt";
 import { json } from "react-router-dom";
 
 const StateContext = createContext();
-// const api_uri = 'https://mindscribe-70op.onrender.com';
-const api_uri = 'http://127.0.0.1:8000';
+const api_uri = 'https://mindscribe-70op.onrender.com';
+// const api_uri = 'http://127.0.0.1:8000';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
@@ -13,30 +13,46 @@ const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
   const [currentUser, setCurrentUser] = useState(null);
   
-  const addEntry = async(title, user) => {
-    const body = JSON.stringify({ title, user });
+  const addEntry = async(title, thisUser) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
       try {
-        const response = await axios.post(`${api_uri}/journalstore/journals/`, {title: title, user: user});
+        const response = await axios.post(`${api_uri}/journalstore/journals/`, {title: title, user: thisUser}, {headers});
         console.log('adding entry ', response)
         return response.data; 
       } catch (err) {
         console.log(err)
         throw err;
       }
+    }
   };
 
   const deleteEntry = async(id) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
       try {
-        const response = await axios.delete(`${api_uri}/journalstore/journals/${id}/`);
+        const response = await axios.delete(`${api_uri}/journalstore/journals/${id}/`, {headers});
         console.log('deleting entry ', response)
         return response.data; 
       } catch (err) {
         console.log(err)
         throw err;
       }
+    }
   };
 
   const updateEntry = async (id, entry, payload) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
     const body = {
       title: payload?.title || entry.title,
       contents: payload?.contents || entry.contents,
@@ -49,13 +65,14 @@ const ContextProvider = ({ children }) => {
     console.log(body)
   
     try {
-      const response = await axios.patch(`${api_uri}/journalstore/journals/${id}/`, body);
+      const response = await axios.patch(`${api_uri}/journalstore/journals/${id}/`, body, {headers});
       console.log('updating entry', response);
       return response.data;
     } catch (err) {
       console.log(err);
       throw err;
     }
+  }
   };  
   
   const fetchJournals = async () => {
@@ -88,18 +105,24 @@ const ContextProvider = ({ children }) => {
 
    /* LABELS */
    const createLabel = async(id, title) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+       
+      };
     const body = {
       user: id,
       name: title,
     }
       try {
-        const response = await axios.post(`${api_uri}/journalstore/labels/`, body);
+        const response = await axios.post(`${api_uri}/journalstore/labels/`, body, {headers});
         console.log('creating label ', response)
         return response.data; 
       } catch (err) {
         console.log('error creating label ', err)
         throw err;
       }
+    }
   };
 
   const fetchLabels = async () => {
