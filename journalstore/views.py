@@ -13,6 +13,7 @@ from .serializers import (
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
+from rest_framework.decorators import action
 
 
 class JournalStyleViewSet(viewsets.ModelViewSet):
@@ -83,3 +84,19 @@ class UserLabelViewSet(viewsets.ModelViewSet):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SearchEntriesViewSet(viewsets.ModelViewSet):
+    serializer_class = JournalEntrySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        query = self.request.GET.get("q", "")
+        entries = JournalEntry.search_entries(user=self.request.user, query=query)
+        return entries
+
+    @action(detail=False, methods=["get"])
+    def search_entries(self, request):
+        queryset = self.get_queryset()
+        serializer = JournalEntrySerializer(queryset, many=True)
+        return Response(serializer.data)

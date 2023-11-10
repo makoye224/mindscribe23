@@ -15,6 +15,7 @@ router.register(
 )
 router.register("user-entries", views.UserJournalEntriesViewSet, basename="userentries")
 router.register("user-labels", views.UserLabelViewSet, basename="userlabels")
+router.register("search-entries", views.SearchEntriesViewSet, basename="searchentries")
 
 # URL patterns
 urlpatterns = []

@@ -3,12 +3,11 @@ import Modal from 'react-bootstrap/Modal';
 import { Button, FormLabel } from 'react-bootstrap';
 import { Box, Typography } from '@mui/material';
 import { useStateContext } from "../context/context";
-import Jwt from '../authentication/jwt';
+
 
 
 function LabelModal(props) {
   const [entry, setEntry] = useState('');
-  const userId = Jwt()
   const {
     createLabel,
     fetchLabels,
@@ -21,7 +20,7 @@ function LabelModal(props) {
   const handleSubmit = async() => {
     // Your submit logic here
     try{
-      createLabel(userId, entry)
+      createLabel(entry)
       setEntry('');
       fetchLabels()
       props.onHide(); // Close the modal after submission

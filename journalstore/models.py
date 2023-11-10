@@ -1,6 +1,7 @@
 from django.db import models
 from account.models import CustomUser  # Import your custom user model
 from django.conf import settings
+from django.db.models import Q
 
 
 class JournalStyle(models.Model):
@@ -48,6 +49,16 @@ class JournalEntry(models.Model):
             self.journal_style = journal_style
 
         super(JournalEntry, self).save(*args, **kwargs)
+
+    @classmethod
+    def search_entries(cls, user, query):
+        """
+        Search for journal entries based on title or contents.
+        """
+        return cls.objects.filter(
+            Q(title__icontains=query, user=user)
+            | Q(contents__icontains=query, user=user)
+        )
 
 
 class Label(models.Model):

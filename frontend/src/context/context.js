@@ -1,11 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import Jwt from "../authentication/jwt";
-import { json } from "react-router-dom";
 
 const StateContext = createContext();
-const api_uri = 'https://mindscribe-70op.onrender.com';
-// const api_uri = 'http://127.0.0.1:8000';
+// const api_uri = 'https://mindscribe-70op.onrender.com';
+const api_uri = 'http://127.0.0.1:8000';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
@@ -61,8 +59,6 @@ const ContextProvider = ({ children }) => {
       is_favorite: payload?.is_favorite || entry.is_favorite,
       journal_style: payload?.journal_style || entry.journal_style,
     };
-
-    console.log(body)
   
     try {
       const response = await axios.patch(`${api_uri}/journalstore/journals/${id}/`, body, {headers});
@@ -104,12 +100,13 @@ const ContextProvider = ({ children }) => {
   }, [])
 
    /* LABELS */
-   const createLabel = async(id, title) => {
+   const createLabel = async(title) => {
     if (user && user.access) {
       const headers = {
         Authorization: `JWT ${user?.access}`,
        
       };
+      const id = getUser().id;
     const body = {
       user: id,
       name: title,
@@ -147,6 +144,39 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const addEntryToLabel = async (labelId, prevJournals, journalId) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+        'Content-Type': 'application/json',
+      };
+  
+      try {
+        const currentJournals = prevJournals || [];
+        
+        // Check if the journalId already exists in the currentJournals array
+        if (!currentJournals.includes(journalId)) {
+          // Create the updated payload by combining the existing and new journals
+          const labelUpdatePayload = {
+            journals: [...currentJournals, journalId],
+          };
+  
+          // Update the label with the new payload
+          const response = await axios.patch(
+            `${api_uri}/journalstore/labels/${labelId}/`,
+            labelUpdatePayload,
+            { headers }
+          );
+  
+          console.log(response);
+        } else {
+          console.log('Journal entry already exists in the label.');
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
+  };  
 
   /* AUTHENTICATION */
 
@@ -304,6 +334,7 @@ const ContextProvider = ({ children }) => {
         labels,
         getUser,
         currentUser,
+        addEntryToLabel,
       }}
     >
       {children}

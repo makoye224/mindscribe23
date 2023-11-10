@@ -15,6 +15,7 @@ export default function LeftDrawer() {
   const [state, setState] = React.useState({
     left: false,
   });
+
   const {
     labels,
     currentUser,
@@ -42,7 +43,6 @@ export default function LeftDrawer() {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
@@ -78,7 +78,12 @@ export default function LeftDrawer() {
                    Labels
                  </Typography>
                  </CustomButton>
-                 <CustomButton onClick={()=>setModalShow(true)} variant='secondary'>  <AddIcon style={{ scale: '120%' }} /></CustomButton>
+                 <CustomButton onClick={(e) => {
+        // e.stopPropagation(); // Stop event propagation
+        setModalShow(true);
+      }} variant='secondary'>
+        <AddIcon style={{ scale: '120%' }} />
+      </CustomButton>
 
                </Box>
                <Box>
@@ -96,8 +101,6 @@ export default function LeftDrawer() {
 
   // Render the drawer only on the left side
   const anchor = 'left';
-
-  
 
   return (
     <Container>
