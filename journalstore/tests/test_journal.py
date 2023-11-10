@@ -55,7 +55,7 @@ class TestInvalidUserCreds:
 
 
 # ------------------------------------------------------------------------------
-# Test for Viewing all Recently created entries
+# Test for Viewing, creating, editing, deleting journal entries
 # JOURNALSTORE TESTS
 @pytest.mark.django_db
 class TestJournalStore:
@@ -188,7 +188,52 @@ class TestJournalStore:
         updated_entry = JournalEntry.objects.get(id=entry_id)
         assert updated_entry.title == "Updated Entry"
         assert updated_entry.contents == "New content"
+    
+        # Attempt to make a journal entry with missing title for entry  
+        def test_create_journal_entry_with_missing_fields_returns_400(self, authenticated_client):
+        client = authenticated_client
+        response = client.get(
+            "/auth/users/me/",
+            {"email": "testuser@user.com", "password": "test@password"},
+        )
+        user_id = response.data.get("id")
 
+        # Attempt to create a journal entry with missing "title" field
+        response_create = client.post(
+            "/journalstore/journals/",
+            {"contents": "", "user": user_id},
+        )
+
+        assert response_create.status_code == status.HTTP_400_BAD_REQUEST
+    
+
+    # Trying to make a journal entry with duplicate journal entry names 
+       def test_create_journal_entry_with_duplicate_title_returns_400(self, authenticated_client):
+        client = authenticated_client
+        response = client.get(
+            "/auth/users/me/",
+            {"email": "testuser@user.com", "password": "test@password"},
+        )
+        user_id = response.data.get("id")
+
+        # Create a journal entry with a specific title
+        response_create = client.post(
+            "/journalstore/journals/",
+            {"title": "Unique Title", "contents": "", "user": user_id},
+        )
+        assert response_create.status_code == status.HTTP_201_CREATED
+
+        # Attempt to create another journal entry with the same title
+        response_duplicate = client.post(
+            "/journalstore/journals/",
+            {"title": "Unique Title", "contents": "", "user": user_id},
+        )
+
+        assert response_duplicate.status_code == status.HTTP_400_BAD_REQUEST
+
+    
+# ------------------------------------------------------------------------------
+# Test for Viewing, Creating, Editing, Deleting Labels
     def test_delete_label(self, authenticated_client):
         client = authenticated_client
         response = client.get(
@@ -234,3 +279,12 @@ class TestJournalStore:
         # Verify that the label is updated in the database
         updated_label = Label.objects.get(id=label_id)
         assert updated_label.name == "Updated Label"
+
+# ------------------------------------------------------------------------------
+# Bookmarking/Unbookmarking and Viewing Bookmarked Entries
+# ------------------------------------------------------------------------------
+# Search Functionality
+# ------------------------------------------------------------------------------
+# Editing profile 
+
+
