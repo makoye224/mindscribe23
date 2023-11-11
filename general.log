@@ -6402,3 +6402,5 @@ django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '127.0.0.1:8000
 2023-11-11 19:29:10,314 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
 2023-11-11 19:29:13,647 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/storefront/settings/common.py changed, reloading.
 2023-11-11 19:29:14,173 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-11 19:34:37,165 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/storefront/wsgi.py changed, reloading.
+2023-11-11 19:34:37,990 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
