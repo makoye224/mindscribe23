@@ -31,12 +31,9 @@ export default function MainPage() {
   // State for controlling the visibility of the modal
   const [modalShow, setModalShow] = React.useState(false);
 
-  // Retrieve user data from localStorage
-  const user = JSON.parse(localStorage.getItem('userData'));
-  const navigate = useNavigate()
-
   const {
    journals,
+   user,
    fetchJournals,
   } = useStateContext();
 
@@ -45,7 +42,7 @@ export default function MainPage() {
       await fetchJournals()
     }
     fetch()
-  }, [])
+  }, [journals])
 
   const handleCloseModal = () => {
     setModalShow(false);
@@ -62,7 +59,7 @@ export default function MainPage() {
     <Container>
       <div>
     
-        <SearchBar />
+        <SearchBar/>
         <br />
         <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h5">Recents</Typography>

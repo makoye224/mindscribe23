@@ -2,14 +2,26 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const StateContext = createContext();
-// const api_uri = 'https://mindscribe-70op.onrender.com';
-const api_uri = 'http://127.0.0.1:8000';
+const api_uri = 'https://mindscribe-70op.onrender.com';
+// const api_uri = 'http://127.0.0.1:8000';
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
   const [labels, setLabels] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
   const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(()=>{
+    const func = async()=>{
+     await  getUser()
+     await fetchJournals()
+     await fetchLabels()
+    }
+
+    func()
+   
+   
+  }, [])
   
   const addEntry = async(title, thisUser) => {
     if (user && user.access) {
@@ -93,11 +105,24 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(()=>{
-    fetchJournals()
-    fetchLabels()
-     getUser()
-  }, [])
+  const fetchSearchedJournals = async (searchValue) => {
+    if (user && user.access) {
+      const headers = {
+        Authorization: `JWT ${user?.access}`,
+      };
+      try {
+        const response = await axios.get(`${api_uri}/journalstore/search-entries/?q=${searchValue}`, {
+          headers,
+        });
+  
+        console.log('searched journals ', response);
+        setJournals(response?.data);
+        return response.data;
+      } catch (err) {
+        throw err;
+      }
+    }
+  };
 
    /* LABELS */
    const createLabel = async(title) => {
@@ -180,17 +205,7 @@ const ContextProvider = ({ children }) => {
 
   /* AUTHENTICATION */
 
-   // Add a function to check if the user is authenticated
-   const checkAuthenticated = () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData && userData.access) {
-      setUser(userData);
-    }
-  };
-
-  useEffect(() => {
-    checkAuthenticated();
-  }, []);
+  
 
   const verify = async(uid, token) =>{
     const config = {
@@ -294,20 +309,18 @@ const ContextProvider = ({ children }) => {
   };
 
   const getUser = async()=>{
+    
     if (user && user.access) {
       const headers = {
         Authorization: `JWT ${user?.access}`,
-       
       };
-
       try{
         const userData = await axios.get(`${api_uri}/auth/users/me/`, {headers})
-        console.log(userData)
+        console.log('getting usedata: ', userData)
         setCurrentUser(userData.data)
       } catch(err){
-        console.log(err)
+        console.log('error getting userData', err)
       }
-
   }
 }
   
@@ -335,6 +348,7 @@ const ContextProvider = ({ children }) => {
         getUser,
         currentUser,
         addEntryToLabel,
+        fetchSearchedJournals,
       }}
     >
       {children}

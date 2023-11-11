@@ -69,6 +69,13 @@ class Label(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "name"], name="unique_label_per_user"
+            )
+        ]
+
 
 class Profile(models.Model):
     user = models.OneToOneField(

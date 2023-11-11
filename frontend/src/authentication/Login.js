@@ -49,7 +49,7 @@ const handleSubmit = async (e) => {
         'refresh': response.data?.refresh,
       }
       console.log(userData)
-      await localStorage.setItem('userData', JSON.stringify(userData));
+      localStorage.setItem('userData', JSON.stringify(userData));
       setUser(userData)
       toast.success('Logged in Successfully');
       navigate('/home');

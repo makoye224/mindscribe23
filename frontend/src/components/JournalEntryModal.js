@@ -4,11 +4,13 @@ import { Button, FormLabel } from 'react-bootstrap';
 import { Box, Typography } from '@mui/material';
 import { useStateContext } from "../context/context";
 import Jwt from '../authentication/jwt';
+import { ColorRing } from 'react-loader-spinner';
 
 
 function JournalEntryModal(props) {
   const [entry, setEntry] = useState('');
   const [error, setError] = useState('');
+  const[loading, setLoading] = useState(false)
   const userId = Jwt()
   const {
     fetchJournals,
@@ -22,6 +24,7 @@ function JournalEntryModal(props) {
   const handleSubmit = async() => {
     // Your submit logic here
     try{
+      setLoading(true)
       await addEntry(entry, userId)
       setEntry('');
       fetchJournals()
@@ -30,6 +33,9 @@ function JournalEntryModal(props) {
       setError(err?.response?.data?.error)
       console.log('error ', error)
       console.error(err)
+    }
+    finally{
+      setLoading(false)
     }
   
    
@@ -55,6 +61,17 @@ function JournalEntryModal(props) {
           />
         </div>
         {error && <div className='alert alert-danger'>{error}</div>}
+        {loading && 
+            
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+            /> }
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={props.onHide}>
