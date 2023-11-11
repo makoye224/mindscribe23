@@ -42,7 +42,7 @@ export default function MainPage() {
       await fetchJournals()
     }
     fetch()
-  }, [journals])
+  }, [])
 
   const handleCloseModal = () => {
     setModalShow(false);

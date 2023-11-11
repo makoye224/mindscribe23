@@ -38,11 +38,11 @@ export default function LeftDrawer() {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchLabels(), getUser()]);
+      await Promise.all([fetchLabels()], getUser());
     };
 
     fetchData();
-  }, [labels]);
+  }, []);
 
   const toggleDrawer = (event, open) => {
     if (
