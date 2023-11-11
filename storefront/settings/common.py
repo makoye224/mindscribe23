@@ -63,7 +63,7 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".vercel.app"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8001",
