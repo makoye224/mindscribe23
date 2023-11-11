@@ -24,10 +24,12 @@ function LabelPopover({ anchorEl, onClose, open }) {
       setEntry('');
       setLoading(false);
       toast.success(`${entry} label created Successfully`);
+      fetchLabels()
       onClose();
     } catch (err) {
       toast.error('something went wrong, try again');
       console.error(err);
+      
     } finally {
       setLoading(false);
     }
