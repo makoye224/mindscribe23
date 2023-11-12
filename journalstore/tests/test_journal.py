@@ -304,9 +304,19 @@ class TestJournalStore:
 
 # ------------------------------------------------------------------------------
 # Bookmarking/Unbookmarking and Viewing Bookmarked Entries
+
+    #Successfully bookmarking an entry
+
+    #Unbookmarking an entry
 # ------------------------------------------------------------------------------
 # Search Functionality
+
+    #Test for when no results are found in a query
+    #Tests for when word is found in query
 # ------------------------------------------------------------------------------
 # Editing profile 
+    #Test for uploading user profile picture 
+
+    #Test for changing name 
 
 
