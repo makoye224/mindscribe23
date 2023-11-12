@@ -280,6 +280,28 @@ class TestJournalStore:
         updated_label = Label.objects.get(id=label_id)
         assert updated_label.name == "Updated Label"
 
+        # Test for creating a label with a duplicate name
+    def test_create_label_with_duplicate_name_returns_400(authenticated_client):
+    client = authenticated_client
+    response = client.get(
+        "/auth/users/me/",
+        {"email": "testuser@user.com", "password": "test@password"},
+    )
+    user_id = response.data.get("id")
+
+    # Create a label with a specific name
+    response_create = client.post(
+        "/journalstore/labels/", {"name": "Test Label", "user": user_id}
+    )
+    assert response_create.status_code == status.HTTP_201_CREATED
+
+    # Attempt to create another label with the same name
+    response_duplicate = client.post(
+        "/journalstore/labels/", {"name": "Test Label", "user": user_id}
+    )
+
+    assert response_duplicate.status_code == status.HTTP_400_BAD_REQUEST
+
 # ------------------------------------------------------------------------------
 # Bookmarking/Unbookmarking and Viewing Bookmarked Entries
 # ------------------------------------------------------------------------------
