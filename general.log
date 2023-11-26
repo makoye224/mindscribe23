@@ -8135,3 +8135,7 @@ Traceback (most recent call last):
   File "/Users/makoye/anaconda3/lib/python3.11/site-packages/psycopg/connection.py", line 728, in connect
     raise ex.with_traceback(None)
 django.db.utils.OperationalError: connection failed: SSL connection has been closed unexpectedly
+2023-11-26 02:49:36,231 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/storefront/settings/common.py changed, reloading.
+2023-11-26 02:49:37,496 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 02:53:50,644 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/storefront/urls.py changed, reloading.
+2023-11-26 02:53:51,678 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
