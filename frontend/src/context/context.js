@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const StateContext = createContext();
-const api_uri = 'https://mindscribe23.vercel.app';
-// const api_uri = "http://127.0.0.1:8000";
+// const api_uri = 'https://mindscribe23.vercel.app';
+const api_uri = "http://127.0.0.1:8000";
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
@@ -93,9 +93,11 @@ const ContextProvider = ({ children }) => {
             headers,
           }
         );
+        
         setJournals(response?.data);
         return response.data;
       } catch (err) {
+      
         throw err;
       }
     }
@@ -122,17 +124,19 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const fetchFavorites = async()=>{
-    await fetchJournals()
-    const favorites = journals.filter((journal)=>journal.is_favorite)
-    setJournals(favorites)
-  }
-  const fetchBookmarked = async()=>{
-    await fetchJournals()
-    const bookmarked = journals.filter((journal)=>journal.is_bookmarked)
-    console.log(bookmarked)
-    setJournals(bookmarked)
-  }
+  const fetchFavorites = async () => {
+    setJournals((prevJournals) => {
+      const favorites = prevJournals.filter((journal) => journal.is_favorite);
+      return favorites;
+    });
+  };
+  
+  const fetchBookmarked = async () => {
+    setJournals((prevJournals) => {
+      const bookmarked = prevJournals.filter((journal) => journal.is_bookmarked);
+      return bookmarked;
+    });
+  };  
   const fetchLabelEntries = (label)=>{
     const journalsInLabel = label.journals
    const labelJournals = journals.filter((journal)=>journalsInLabel.includes(journal.id))

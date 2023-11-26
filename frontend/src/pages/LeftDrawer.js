@@ -35,6 +35,7 @@ export default function LeftDrawer() {
     fetchLabels,
     getUser,
     fetchJournals,
+    journals,
     fetchFavorites,
     fetchBookmarked,
     fetchLabelEntries,
@@ -59,6 +60,8 @@ export default function LeftDrawer() {
 
   const handleFavoriteClick = async(e)=>{
     e.preventDefault()
+    await fetchJournals()
+    console.log(journals)
     fetchFavorites()
     toggleDrawer(e, false)
   }
@@ -70,6 +73,8 @@ export default function LeftDrawer() {
   }
   const handleBookmarkedClick = async(e)=>{
     e.preventDefault()
+    await fetchJournals()
+    console.log(journals)
     fetchBookmarked()
     toggleDrawer(e, false)
   }
