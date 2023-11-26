@@ -122,11 +122,13 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const fetchFavorites = ()=>{
+  const fetchFavorites = async()=>{
+    await fetchJournals()
     const favorites = journals.filter((journal)=>journal.is_favorite)
     setJournals(favorites)
   }
-  const fetchBookmarked = ()=>{
+  const fetchBookmarked = async()=>{
+    await fetchJournals()
     const bookmarked = journals.filter((journal)=>journal.is_bookmarked)
     console.log(bookmarked)
     setJournals(bookmarked)
