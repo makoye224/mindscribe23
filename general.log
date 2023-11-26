@@ -8174,3 +8174,5 @@ django.db.utils.OperationalError: connection failed: SSL connection has been clo
 2023-11-26 04:06:09,397 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
 2023-11-26 04:06:10,636 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
 2023-11-26 04:06:11,062 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 04:14:11,495 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 04:14:12,463 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
