@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const StateContext = createContext();
-// const api_uri = 'https://mindscribe23.vercel.app';
-const api_uri = "http://127.0.0.1:8000";
+const api_uri = 'https://mindscribe23.vercel.app';
+// const api_uri = "http://127.0.0.1:8000";
 
 const ContextProvider = ({ children }) => {
   const [journals, setJournals] = useState([]);
