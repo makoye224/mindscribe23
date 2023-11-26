@@ -8142,3 +8142,15 @@ django.db.utils.OperationalError: connection failed: SSL connection has been clo
 2023-11-26 03:35:35,993 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
 2023-11-26 03:36:37,463 (INFO) - django.utils.autoreload - /Users/makoye/anaconda3/lib/python3.11/site-packages/django/contrib/admin/decorators.py changed, reloading.
 2023-11-26 03:50:00,081 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:51:43,459 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:51:44,262 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:51:52,776 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:51:53,411 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:52:00,871 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:52:01,492 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:52:02,772 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:52:03,236 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:52:04,481 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:52:04,898 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 03:52:35,243 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/manage.py changed, reloading.
+2023-11-26 03:52:36,092 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
