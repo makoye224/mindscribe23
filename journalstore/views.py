@@ -51,7 +51,7 @@ class UserJournalEntriesViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return JournalEntry.objects.filter(user=user)
+        return JournalEntry.objects.filter(user=user).order_by("title")
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -7516,3 +7516,622 @@ Traceback (most recent call last):
     return self.cursor.execute(sql, params)
 django.db.utils.OperationalError: SSL connection has been closed unexpectedly
 
+2023-11-25 17:13:14,108 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-25 17:18:03,320 (ERROR) - django.request - Internal Server Error: /auth/users/me/
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 646, in get
+    num = len(clone)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 376, in __len__
+    self._fetch_all()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 1867, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 87, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/sql/compiler.py", line 1398, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 103, in execute
+    return super().execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.OperationalError: SSL connection has been closed unexpectedly
+
+2023-11-25 17:21:20,252 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:20,279 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:26,759 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:26,766 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:26,770 (WARNING) - django.request - Unauthorized: /journalstore/user-labels/
+2023-11-25 17:21:26,780 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:26,781 (WARNING) - django.request - Unauthorized: /journalstore/user-labels/
+2023-11-25 17:21:26,782 (WARNING) - django.request - Unauthorized: /auth/users/me/
+2023-11-25 17:21:26,785 (WARNING) - django.request - Unauthorized: /journalstore/user-entries/
+2023-11-25 17:21:26,787 (WARNING) - django.request - Unauthorized: /auth/users/me/
+2023-11-25 17:47:08,898 (WARNING) - django.request - Not Found: /journalstore/journals/undefined/
+2023-11-25 17:47:48,150 (ERROR) - django.request - Internal Server Error: /journalstore/journals/121/
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/mixins.py", line 82, in partial_update
+    return self.update(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/mixins.py", line 67, in update
+    serializer.is_valid(raise_exception=True)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/serializers.py", line 483, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/relations.py", line 153, in run_validation
+    return super().run_validation(data)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/fields.py", line 547, in run_validation
+    value = self.to_internal_value(data)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/relations.py", line 264, in to_internal_value
+    return queryset.get(pk=data)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 646, in get
+    num = len(clone)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 376, in __len__
+    self._fetch_all()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 1867, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 87, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/sql/compiler.py", line 1398, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 103, in execute
+    return super().execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.OperationalError: SSL connection has been closed unexpectedly
+
+2023-11-25 18:35:00,835 (ERROR) - django.request - Internal Server Error: /journalstore/user-entries/
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 646, in get
+    num = len(clone)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 376, in __len__
+    self._fetch_all()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 1867, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 87, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/sql/compiler.py", line 1396, in execute_sql
+    cursor = self.connection.cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 323, in cursor
+    return self._cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 299, in _cursor
+    self.ensure_connection()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+2023-11-25 18:44:21,525 (ERROR) - django.request - Internal Server Error: /auth/users/me/
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 646, in get
+    num = len(clone)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 376, in __len__
+    self._fetch_all()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 1867, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 87, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/sql/compiler.py", line 1396, in execute_sql
+    cursor = self.connection.cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 323, in cursor
+    return self._cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 299, in _cursor
+    self.ensure_connection()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+2023-11-25 18:53:04,088 (INFO) - django.utils.autoreload - /Users/makoye/Desktop/mindscribe23/journalstore/views.py changed, reloading.
+2023-11-25 18:53:05,280 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-25 23:50:01,164 (ERROR) - django.request - Internal Server Error: /auth/users/me/
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 646, in get
+    num = len(clone)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 376, in __len__
+    self._fetch_all()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 1867, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/query.py", line 87, in __iter__
+    results = compiler.execute_sql(
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/models/sql/compiler.py", line 1396, in execute_sql
+    cursor = self.connection.cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 323, in cursor
+    return self._cursor()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 299, in _cursor
+    self.ensure_connection()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 282, in ensure_connection
+    self.connect()
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/base/base.py", line 263, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/django/db/backends/postgresql/base.py", line 215, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/Users/makoye/.local/share/virtualenvs/mindscribe23-aBABcPRL/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com" (35.227.164.209), port 5432 failed: SSL connection has been closed unexpectedly
+
+2023-11-26 00:00:10,961 (INFO) - django.utils.autoreload - Watching for file changes with StatReloader
+2023-11-26 00:04:58,126 (ERROR) - django.request - Internal Server Error: /journalstore/user-entries/
+Traceback (most recent call last):
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/psycopg/connection.py", line 728, in connect
+    raise ex.with_traceback(None)
+psycopg.OperationalError: connection failed: SSL connection has been closed unexpectedly
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 330, in cursor
+    return self._cursor()
+           ^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 306, in _cursor
+    self.ensure_connection()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    with self.wrap_database_errors:
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/psycopg/connection.py", line 728, in connect
+    raise ex.with_traceback(None)
+django.db.utils.OperationalError: connection failed: SSL connection has been closed unexpectedly
+2023-11-26 00:15:16,754 (ERROR) - django.request - Internal Server Error: /auth/users/me/
+Traceback (most recent call last):
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/psycopg/connection.py", line 728, in connect
+    raise ex.with_traceback(None)
+psycopg.OperationalError: connection failed: SSL connection has been closed unexpectedly
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 497, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 414, in initial
+    self.perform_authentication(request)
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/views.py", line 324, in perform_authentication
+    request.user
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/request.py", line 227, in user
+    self._authenticate()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework/request.py", line 380, in _authenticate
+    user_auth_tuple = authenticator.authenticate(self)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework_simplejwt/authentication.py", line 40, in authenticate
+    return self.get_user(validated_token), validated_token
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/rest_framework_simplejwt/authentication.py", line 119, in get_user
+    user = self.user_model.objects.get(**{api_settings.USER_ID_FIELD: user_id})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 380, in __len__
+    self._fetch_all()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 330, in cursor
+    return self._cursor()
+           ^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 306, in _cursor
+    self.ensure_connection()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 288, in ensure_connection
+    with self.wrap_database_errors:
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 289, in ensure_connection
+    self.connect()
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/base/base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/utils/asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/django/db/backends/postgresql/base.py", line 275, in get_new_connection
+    connection = self.Database.connect(**conn_params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/makoye/anaconda3/lib/python3.11/site-packages/psycopg/connection.py", line 728, in connect
+    raise ex.with_traceback(None)
+django.db.utils.OperationalError: connection failed: SSL connection has been closed unexpectedly
