@@ -1,10 +1,3 @@
-#!/bin/bash
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run Django migrations
-python manage.py migrate
-
-# Collect static files
-python manage.py collectstatic --noinput
+pip install pipenv
+pip install -r requirements.txt 
+python3.9 manage.py collectstatic
