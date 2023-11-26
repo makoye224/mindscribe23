@@ -305,18 +305,71 @@ class TestJournalStore:
 # ------------------------------------------------------------------------------
 # Bookmarking/Unbookmarking and Viewing Bookmarked Entries
 
-    #Successfully bookmarking an entry
+def test_bookmark_entry(authenticated_client):
+    client = authenticated_client
+    response_create = client.post(
+        "/journalstore/journals/", {"title": "Bookmarked Entry", "contents": ""}
+    )
+    entry_id = response_create.data["id"]
 
-    #Unbookmarking an entry
+    # Bookmark the entry
+    response_bookmark = client.post(f"/journalstore/journals/{entry_id}/bookmark/")
+    assert response_bookmark.status_code == status.HTTP_200_OK
+
+    # Verify that the entry is bookmarked
+    response_view_bookmarks = client.get("/journalstore/bookmarks/")
+    assert response_view_bookmarks.status_code == status.HTTP_200_OK
+    bookmarked_entries = response_view_bookmarks.json()
+    assert entry_id in bookmarked_entries["bookmarked_entries"]
+
+def test_unbookmark_entry(authenticated_client):
+    client = authenticated_client
+    response_create = client.post(
+        "/journalstore/journals/", {"title": "Unbookmarked Entry", "contents": ""}
+    )
+    entry_id = response_create.data["id"]
+
+    # Bookmark the entry
+    client.post(f"/journalstore/journals/{entry_id}/bookmark/")
+
+    # Unbookmark the entry
+    response_unbookmark = client.post(f"/journalstore/journals/{entry_id}/unbookmark/")
+    assert response_unbookmark.status_code == status.HTTP_200_OK
+
+    # Verify that the entry is no longer bookmarked
+    response_view_bookmarks = client.get("/journalstore/bookmarks/")
+    assert response_view_bookmarks.status_code == status.HTTP_200_OK
+    bookmarked_entries = response_view_bookmarks.json()
+    assert entry_id not in bookmarked_entries["bookmarked_entries"]
+
 # ------------------------------------------------------------------------------
 # Search Functionality
 
     #Test for when no results are found in a query
     #Tests for when word is found in query
+
 # ------------------------------------------------------------------------------
 # Editing profile 
+
     #Test for uploading user profile picture 
 
     #Test for changing name 
+def test_upload_profile_picture(authenticated_client):
+    client = authenticated_client
+    # Assuming you have an endpoint for uploading profile pictures
+    response = client.post("/journalstore/profile/", {"profile_picture": "path/to/image.jpg"})
+    assert response.status_code == status.HTTP_200_OK
+
+def test_change_name(authenticated_client):
+    client = authenticated_client
+    new_name = "New Name"
+    response = client.put("/journalstore/profile/", {"name": new_name})
+    assert response.status_code == status.HTTP_200_OK
+
+    # Verify that the name is updated
+    response_get_profile = client.get("/journalstore/profile/")
+    assert response_get_profile.status_code == status.HTTP_200_OK
+    profile_data = response_get_profile.json()
+    assert profile_data["name"] == new_name
 
 
