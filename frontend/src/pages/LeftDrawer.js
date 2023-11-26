@@ -34,6 +34,10 @@ export default function LeftDrawer() {
     currentUser,
     fetchLabels,
     getUser,
+    fetchJournals,
+    fetchFavorites,
+    fetchBookmarked,
+    fetchLabelEntries,
   } = useStateContext();
 
   React.useEffect(() => {
@@ -52,7 +56,28 @@ export default function LeftDrawer() {
       setState({ ...state, left: open });
     }
   };
+
+  const handleFavoriteClick = async(e)=>{
+    e.preventDefault()
+    fetchFavorites()
+    toggleDrawer(e, false)
+  }
   
+  const handleDocumentClick = (e)=>{
+    e.preventDefault()
+    fetchJournals()
+    toggleDrawer(e, false)
+  }
+  const handleBookmarkedClick = async(e)=>{
+    e.preventDefault()
+    fetchBookmarked()
+    toggleDrawer(e, false)
+  }
+
+  const handleLabelButtonClick = (e,label)=>{
+    fetchLabelEntries(label)
+    toggleDrawer(e, false)
+  }
 
   const list = (
     <Box
@@ -74,12 +99,14 @@ export default function LeftDrawer() {
       <hr />
       <Box>
         <CustomButton variant="secondary">
-          <Typography variant="h5">General</Typography>
+          <Typography variant="h5" className='text-center'>General</Typography>
         </CustomButton>
         <br />
-        <CustomButton variant="secondary">Documents</CustomButton>
+        <CustomButton onClick={handleDocumentClick} variant="secondary" className='clear-icon w-full'>Documents</CustomButton>
         <br />
-        <CustomButton variant="secondary">Favorites</CustomButton>
+        <CustomButton onClick={handleFavoriteClick} variant="secondary" className='clear-icon w-full'>Favorites</CustomButton>
+        <br />
+        <CustomButton onClick={handleBookmarkedClick} variant="secondary" className='clear-icon w-full'>Bookmarked</CustomButton>
         <br />
         <hr />
         <Box
@@ -109,7 +136,7 @@ export default function LeftDrawer() {
                 justifyContent="space-between"
                 onClick={(e) => e.stopPropagation()}
               >
-                <CustomButton variant="secondary" onClick={(e) => e.stopPropagation()}>
+                <CustomButton variant="secondary" className='clear-icon w-full' onClick={(e)=>handleLabelButtonClick(e, label)}>
                   {label.name}
                 </CustomButton>
                 <MoreIcon label={label} />

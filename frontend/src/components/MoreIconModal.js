@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import CustomButton from "./CustomButton";
 import { Box } from "@mui/material";
 import { useStateContext } from "../context/context";
 import { toast } from "react-toastify";
 import { Audio, ColorRing } from "react-loader-spinner";
+
+const CustomButton = ({ onClick, children }) => (
+  <button className="custom-button" onClick={onClick}>
+    {children}
+  </button>
+);
 
 function MoreIconModal({ journal, ...props }) {
   const {
@@ -13,14 +18,19 @@ function MoreIconModal({ journal, ...props }) {
     deleteEntry,
     createLabel,
     fetchLabels,
+    updateEntry,
     labels,
     addEntryToLabel,
+   
   } = useStateContext();
+
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showAddToLabel, setShowAddToLabel] = useState(false);
   const [showNewLabel, setShowNewLabel] = useState(false);
   const [label, setLabel] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editEntry, setEditEntry] = useState(false);
+  const [entry, setEntry] = useState(journal.title || '');
 
   const handleDeleteJournalEntry = async () => {
     const id = journal?.id;
@@ -35,7 +45,7 @@ function MoreIconModal({ journal, ...props }) {
       props.onHide();
       toast.error("Failed to delete journal entry");
     } finally {
-      setLoading(false); // Set loading to false after the operation
+      setLoading(false);
     }
   };
 
@@ -57,12 +67,12 @@ function MoreIconModal({ journal, ...props }) {
     try {
       setLoading(true);
       await addEntryToLabel(label.id, label.journals, journal.id);
-      toast.success(`journal entry added to ${label.name} successfully`);
+      toast.success(`Journal entry added to ${label.name} successfully`);
     } catch (err) {
-      toast.error(`failed to add entry to ${label.name}`);
+      toast.error(`Failed to add entry to ${label.name}`);
       console.log(err);
     } finally {
-      setLoading(false); // Set loading to false after the operation
+      setLoading(false);
       setShowAddToLabel(false);
     }
   };
@@ -79,13 +89,13 @@ function MoreIconModal({ journal, ...props }) {
         const response = await createLabel(label);
         console.log(response.id);
         try {
-          const addToLabel = await addEntryToLabel(
+          await addEntryToLabel(
             response?.id,
             response.journals,
             journal.id
           );
           setShowNewLabel(false);
-          toast.success(`journal entry added to ${response.name} successfully`);
+          toast.success(`Journal entry added to ${response.name} successfully`);
         } catch (err) {
           console.log(err);
         }
@@ -94,6 +104,39 @@ function MoreIconModal({ journal, ...props }) {
       } finally {
         setLoading(false);
       }
+    }
+  };
+
+  const handleEditEntry = async(e) => {
+    e.preventDefault();
+
+    const payload = {
+      title: entry,
+    };
+
+    try {
+      const res = await updateEntry(journal.id, journal, payload);
+      fetchJournals();
+      props.onHide();
+    } catch (err) {
+      console.error(err);
+    }
+
+    setEntry('');
+    setEditEntry(false);
+  };
+
+  const handleAddToFavorites = async () => {
+    const payload = {
+      is_favorite: true,
+    };
+
+    try {
+      const res = await updateEntry(journal.id, journal, payload);
+      fetchJournals();
+      props.onHide();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -107,28 +150,49 @@ function MoreIconModal({ journal, ...props }) {
       >
         <Modal.Body>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <CustomButton
-              variant="secondary"
-              fullWidth
-              onClick={handleCreateNewLabel}
-            >
+            <CustomButton onClick={() => setEditEntry(!editEntry)}>
+              Edit Entry
+            </CustomButton>
+            <br/>
+            {editEntry && 
+              <div>
+                <form onSubmit={handleEditEntry}>
+                  <label className='font-bold'>New entry name</label>
+                  <input 
+                    type='text'
+                    value={entry} 
+                    onChange={(e) => setEntry(e.target.value)} 
+                    className='form-control'
+                    required
+                  />
+                  <br/>
+                  <CustomButton variant="secondary" type="submit">
+                    Submit
+                  </CustomButton>
+                </form>
+                <br/>
+              </div>
+            }
+            <CustomButton onClick={handleCreateNewLabel}>
               Create Label
             </CustomButton>
-            <CustomButton
-              variant="secondary"
-              fullWidth
-              onClick={handleAddToExistingLabel}
-            >
+            <br/>
+            <CustomButton onClick={handleAddToFavorites}>
+              Add to Favorites
+            </CustomButton>
+            <br/>
+            <CustomButton onClick={handleAddToExistingLabel}>
               Add to Existing Label
             </CustomButton>
-            <CustomButton variant="secondary" fullWidth onClick={confirmDelete}>
+            <br/>
+            <CustomButton variant="secondary" onClick={confirmDelete}>
               Delete Entry
             </CustomButton>
           </Box>
         </Modal.Body>
         <Modal.Footer>
           <Box width="100%" display="flex" justifyContent="center">
-            <CustomButton variant="secondary" fullWidth onClick={props.onHide}>
+            <CustomButton variant="secondary" onClick={props.onHide}>
               Close
             </CustomButton>
           </Box>
@@ -208,10 +272,7 @@ function MoreIconModal({ journal, ...props }) {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <CustomButton
-              variant="secondary"
-              onClick={() => setShowAddToLabel(false)}
-            >
+            <CustomButton variant="secondary" onClick={() => setShowAddToLabel(false)}>
               Cancel
             </CustomButton>
           </Modal.Footer>
@@ -254,10 +315,7 @@ function MoreIconModal({ journal, ...props }) {
             <CustomButton variant="danger" onClick={createNewLabel}>
               Add
             </CustomButton>
-            <CustomButton
-              variant="secondary"
-              onClick={() => setShowNewLabel(false)}
-            >
+            <CustomButton variant="secondary" onClick={() => setShowNewLabel(false)}>
               Cancel
             </CustomButton>
           </Modal.Footer>

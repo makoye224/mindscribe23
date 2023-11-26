@@ -22,7 +22,7 @@ const Editor = () => {
 
   // Find the selected journal entry based on the title
   const selectedJournalEntry = journals.find((entry) => entry.id == id);
-  console.log('entry --->', selectedJournalEntry)
+ 
   // Initialize the text with the content of the selected entry, if found
   const initialText = selectedJournalEntry ? selectedJournalEntry.contents : '';
 
@@ -37,7 +37,6 @@ const Editor = () => {
         title: title,
         contents: text,
       }
-      console.log('payload ',selectedJournalEntry, payload)
      await updateEntry (id, selectedJournalEntry, payload)
 }
 update()

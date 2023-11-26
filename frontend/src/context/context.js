@@ -24,10 +24,10 @@ const ContextProvider = ({ children }) => {
           { title: title, user: thisUser },
           { headers }
         );
-        console.log("adding entry ", response);
+       
         return response.data;
       } catch (err) {
-        console.log(err);
+        
         throw err;
       }
     }
@@ -43,7 +43,7 @@ const ContextProvider = ({ children }) => {
           `${api_uri}/journalstore/journals/${id}/`,
           { headers }
         );
-        console.log("deleting entry ", response);
+        
         return response.data;
       } catch (err) {
         console.log(err);
@@ -72,7 +72,6 @@ const ContextProvider = ({ children }) => {
           body,
           { headers }
         );
-        console.log("updating entry", response);
         return response.data;
       } catch (err) {
         console.log(err);
@@ -115,7 +114,6 @@ const ContextProvider = ({ children }) => {
           }
         );
 
-        console.log("searched journals ", response);
         setJournals(response?.data);
         return response.data;
       } catch (err) {
@@ -123,6 +121,21 @@ const ContextProvider = ({ children }) => {
       }
     }
   };
+
+  const fetchFavorites = ()=>{
+    const favorites = journals.filter((journal)=>journal.is_favorite)
+    setJournals(favorites)
+  }
+  const fetchBookmarked = ()=>{
+    const bookmarked = journals.filter((journal)=>journal.is_bookmarked)
+    console.log(bookmarked)
+    setJournals(bookmarked)
+  }
+  const fetchLabelEntries = (label)=>{
+    const journalsInLabel = label.journals
+   const labelJournals = journals.filter((journal)=>journalsInLabel.includes(journal.id))
+   setJournals(labelJournals)
+  }
 
   /* LABELS */
   const createLabel = async (title) => {
@@ -141,10 +154,8 @@ const ContextProvider = ({ children }) => {
           body,
           { headers }
         );
-        console.log("creating label ", response);
         return response.data;
       } catch (err) {
-        console.log("error creating label ", err);
         throw err;
       }
     }
@@ -160,10 +171,10 @@ const ContextProvider = ({ children }) => {
           `${api_uri}/journalstore/labels/${id}/`,
           { headers }
         );
-        console.log("deleting label ", response);
+      
         return response;
       } catch (err) {
-        console.log("error deleting label ", err);
+     
         throw err;
       }
     }
@@ -182,10 +193,10 @@ const ContextProvider = ({ children }) => {
           `${api_uri}/journalstore/labels/${id}/`, body,
           { headers }
         );
-        console.log("updating label ", response);
+       
         return response;
       } catch (err) {
-        console.log("error updating label ", err);
+       
         throw err;
       }
     }
@@ -204,7 +215,6 @@ const ContextProvider = ({ children }) => {
             headers,
           }
         );
-        console.log(response)
         setLabels(response.data);
         return response.data;
       } catch (err) {
@@ -237,9 +247,9 @@ const ContextProvider = ({ children }) => {
             { headers }
           );
 
-          console.log(response);
+         
         } else {
-          console.log("Journal entry already exists in the label.");
+          console.error("Journal entry already exists in the label.");
         }
       } catch (err) {
         throw err;
@@ -341,7 +351,7 @@ const ContextProvider = ({ children }) => {
       // Handle the response as needed
       // You might want to set some state or display a message to the user.
     } catch (error) {
-      console.log("error context ", error);
+    
       throw error;
     }
   };
@@ -367,7 +377,7 @@ const ContextProvider = ({ children }) => {
         body,
         config
       );
-      console.log("context ", response);
+
       return response;
 
       // Optionally, you can redirect the user to a login page or display a success message.
@@ -385,10 +395,9 @@ const ContextProvider = ({ children }) => {
         const userData = await axios.get(`${api_uri}/auth/users/me/`, {
           headers,
         });
-        console.log("getting userdata: ", userData);
         setCurrentUser(userData.data);
       } catch (err) {
-        console.log("error getting userData", err);
+        console.error(err);
       }
     }
   };
@@ -434,6 +443,9 @@ const ContextProvider = ({ children }) => {
         fetchSearchedJournals,
         deleteLabel,
         editLabel,
+        fetchFavorites,
+        fetchBookmarked,
+        fetchLabelEntries,
       }}
     >
       {children}

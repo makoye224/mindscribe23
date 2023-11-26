@@ -16,4 +16,20 @@ top: 194px;
   .editor {
     height: 600px;
   }
+
+  .custom-button {
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: rgb(215, 212, 212);
+  }
+  
+  .custom-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    color: white
+  }
+  
   

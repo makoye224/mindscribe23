@@ -6,6 +6,9 @@ import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import MoreIconModal from './MoreIconModal';
 import { NavLink } from 'react-router-dom';
 import { useStateContext } from '../context/context';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import jn from '../media/jn.gif'
 
 export const JournalEntry = ({entry}) => {
 
@@ -16,6 +19,7 @@ export const JournalEntry = ({entry}) => {
 
   // State for tracking whether the journal is bookmarked
   const [isBookmarked, setIsBookmarked] = useState(entry?.is_bookmarked || false);
+  const [isFavorite, setIsFavorite] = useState(entry?.is_favorite || false);
   // State for controlling the visibility of the modal
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -50,12 +54,42 @@ export const JournalEntry = ({entry}) => {
     setModalShow(false);
   };
 
+  const handleFavoriteClick =async()=>{
+    setIsFavorite(!isFavorite)
+    let val = '';
+    if(!isFavorite){
+      val = 'true';
+    }
+    else{
+      val = 'false'
+    }
+    const payload = {
+      is_favorite: val,
+    }
+    try{
+      await updateEntry(entry.id, entry, payload)
+    
+      fetchJournals()
+    }catch(err){
+      console.log(err)
+    }
+  }
+  const len = ()=>{
+    if (entry?.contents?.length > 84){
+      return 80;
+    }
+    else if(entry?.contents?.length === 0){
+      return 0
+    }
+    else{
+      return entry?.contents?.length - 4
+    }
+  }
 
   return (
     <>
-    
-    
-      <Card sx={{ position: 'relative' }}>
+    <div className='shadow-2xl'>
+    <Card sx={{ position: 'relative'}}>
    
       <NavLink to={`/editor/${entry?.id}`}>
         <Box
@@ -63,13 +97,16 @@ export const JournalEntry = ({entry}) => {
             position: 'relative',
             width: '100%',
             aspectRatio: '16/9',
-            backgroundColor: '#F0F0F0',
+            backgroundImage: `url(https://shorturl.at/bjvD0)`,
+            backgroundSize: 'cover',
           }}
         >
+          <p className='text-white py-11 px-2'>
+           {entry?.contents?.substring(3, len())}
+          </p>
         </Box>
         </NavLink>
-        <CardContent>
-       
+        <CardContent >
           <Box display="flex" justifyContent="space-between" alignItems="center">
           <NavLink to={`/editor/${entry.id}`} style={{ textDecoration: 'none', color:'black' }}>
             <Typography gutterBottom variant="p" component="div" >
@@ -81,6 +118,19 @@ export const JournalEntry = ({entry}) => {
             </Button>
           </Box>
         </CardContent>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '8px',
+            left: '8px',
+            zIndex: '1',
+          }}
+        >
+          
+          <Box onClick={handleFavoriteClick} style={{cursor: 'pointer'}}>
+            {isFavorite ?<FavoriteIcon /> : <FavoriteBorderIcon /> }
+          </Box>
+        </Box>
 
         <Box
           sx={{
@@ -90,7 +140,6 @@ export const JournalEntry = ({entry}) => {
             zIndex: '1',
           }}
         >
-          {/* Bookmark Icon (Toggle between Bookmark and TurnedInNot) */}
           
           <Box onClick={handleBookmarkClick} style={{cursor: 'pointer'}}>
             {isBookmarked ?<BookmarkIcon /> : <TurnedInNotIcon /> }
@@ -99,7 +148,7 @@ export const JournalEntry = ({entry}) => {
       </Card>
 
       <MoreIconModal show={modalShow} onHide={handleCloseModal} journal = {entry}/>
-   
+   </div>
     </>
   );
 };
