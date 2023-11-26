@@ -64,9 +64,11 @@ function MoreIconModal({ journal, ...props }) {
   };
 
   const addToExistingLabel = async (label) => {
+    const newJournalLabel = [...label.journals, journal.id];
     try {
       setLoading(true);
-      await addEntryToLabel(label.id, label.journals, journal.id);
+      await addEntryToLabel(label.id, newJournalLabel);
+      await fetchLabels()
       toast.success(`Journal entry added to ${label.name} successfully`);
     } catch (err) {
       toast.error(`Failed to add entry to ${label.name}`);
@@ -91,9 +93,9 @@ function MoreIconModal({ journal, ...props }) {
         try {
           await addEntryToLabel(
             response?.id,
-            response.journals,
-            journal.id
+            [journal.id],
           );
+          fetchLabels()
           setShowNewLabel(false);
           toast.success(`Journal entry added to ${response.name} successfully`);
         } catch (err) {

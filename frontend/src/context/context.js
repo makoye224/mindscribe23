@@ -137,11 +137,13 @@ const ContextProvider = ({ children }) => {
       return bookmarked;
     });
   };  
-  const fetchLabelEntries = (label)=>{
-    const journalsInLabel = label.journals
-   const labelJournals = journals.filter((journal)=>journalsInLabel.includes(journal.id))
-   setJournals(labelJournals)
-  }
+  const fetchLabelEntries = (label) => {
+    setJournals((prevJournals) => {
+      const journalsInLabel = label.journals;
+      const labelJournals = prevJournals.filter((journal) => journalsInLabel.includes(journal.id));
+      return labelJournals;
+    });
+  };
 
   /* LABELS */
   const createLabel = async (title) => {
@@ -229,39 +231,33 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const addEntryToLabel = async (labelId, prevJournals, journalId) => {
+  const addEntryToLabel = async (labelId, labelJournals) => {
     if (user && user.access) {
       const headers = {
         Authorization: `JWT ${user?.access}`,
         "Content-Type": "application/json",
       };
-
+      // Create the updated payload by combining the existing and new journals
+      const labelUpdatePayload = {
+        "journals": labelJournals
+      };
+      console.log('new journals ', labelUpdatePayload)
+  
       try {
-        const currentJournals = prevJournals || [];
-
-        // Check if the journalId already exists in the currentJournals array
-        if (!currentJournals.includes(journalId)) {
-          // Create the updated payload by combining the existing and new journals
-          const labelUpdatePayload = {
-            journals: [...currentJournals, journalId],
-          };
-
           // Update the label with the new payload
-          const response = await axios.patch(
+          const res = await axios.patch(
             `${api_uri}/journalstore/labels/${labelId}/`,
             labelUpdatePayload,
             { headers }
           );
-
-         
-        } else {
-          console.error("Journal entry already exists in the label.");
+          console.log('res: ', res)
         }
-      } catch (err) {
+         catch (err) {
         throw err;
       }
-    }
+  }
   };
+  
 
   /* AUTHENTICATION */
 
