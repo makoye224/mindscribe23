@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 import { useStateContext } from '../context/context';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import jn from '../media/jn.gif'
 
 export const JournalEntry = ({entry}) => {
 
