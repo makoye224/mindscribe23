@@ -74,17 +74,6 @@ export const JournalEntry = ({entry}) => {
       console.log(err)
     }
   }
-  const len = ()=>{
-    if (entry?.contents?.length > 84){
-      return 80;
-    }
-    else if(entry?.contents?.length === 0){
-      return 0
-    }
-    else{
-      return entry?.contents?.length - 4
-    }
-  }
 
   return (
     <>
@@ -101,9 +90,6 @@ export const JournalEntry = ({entry}) => {
             backgroundSize: 'cover',
           }}
         >
-          <p className='text-white py-11 px-2'>
-           {entry?.contents?.substring(3, len())}
-          </p>
         </Box>
         </NavLink>
         <CardContent >

@@ -19,7 +19,7 @@ function Header() {
   };
 
   return (
-    <div style={{ backgroundColor: "#f2f3f5" }}>
+    <div style={{ backgroundColor: "white" }}>
       <Container>
         <br />
         <Box display="flex" alignItems="center" justifyContent="space-between">

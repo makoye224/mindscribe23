@@ -41,14 +41,12 @@ const Home = () => {
     <>
       <div style={containerStyle}>
      
-      <div className='row container'>
-  <div className='col-md-6'>
-    <img src={front} alt='frontpage' className='img-fluid' />
+      <div className="flex container">
+  <div className="md:w-1/2">
+    <img src={front} alt="frontpage" className="img-fluid" />
   </div>
-  <div className='col-md-6' style={{marginTop: isLargeScreen ? '10px' : '-90px'}}>
-  {isLargeScreen ? (
-    <div style={{ height: '100px' }}></div>
-  ) : (null)}
+  <div className={`md:w-1/2 ${isLargeScreen ? 'mt-10' : 'mt-0'}`}>
+    {isLargeScreen ? <div className="h-20"></div> : null}
     <h4>A DIGITIZED APPROACH TO JOURNALING.</h4>
     <br />
     <p>Got a strike of inspiration? Need to vent? See something interesting?</p>
@@ -56,6 +54,7 @@ const Home = () => {
     <p>Journal on the go anywhere, anytime.</p>
   </div>
 </div>
+
 
 </div>
       <br/>
