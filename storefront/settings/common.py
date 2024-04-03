@@ -214,7 +214,7 @@ LOGGING = {
 
 DATABASES = {
     "default": dj_database_url.parse(
-        "postgres://mindscribe_suyl_user:8turuw77CgiHy1ZiR0NVbtwdZrAmVWgc@dpg-cl3r7siuuipc738j7j1g-a.oregon-postgres.render.com/mindscribe_suyl"
+        "postgres://mindscribe_zv16_user:PgYKp0sWgPnqDL4aJ2HTtdJEDtWs07kc@dpg-co6cuskf7o1s73dhf5fg-a.oregon-postgres.render.com/mindscribe_zv16"
     )
 }
 
